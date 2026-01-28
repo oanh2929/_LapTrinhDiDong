@@ -1,0 +1,52 @@
+package com.example.lab2
+
+import com.example.lab2.ui.theme.Birthday
+import com.example.lab2.ui.theme.TextApp
+import com.example.lab2.ui.theme.ProfileCard
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.lab2.ui.theme.Birthday
+import com.example.lab2.ui.theme.Lab2Theme
+import com.example.lab2.ui.theme.ProfileCard
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            Lab2Theme {
+                ProfileCard()
+                // BirthDay
+                // TextApp
+            }
+        }
+
+
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    Lab2Theme {
+        Greeting("Android")
+    }
+}
