@@ -1,9 +1,5 @@
-package com.example.lab2
-
-import com.example.lab2.ui.theme.Birthday
-import com.example.lab2.ui.theme.TextApp
-import com.example.lab2.ui.theme.ProfileCard
-
+package com.example.lab3
+import com.example.lab3.ui.theme.DiceApp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,24 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.lab2.ui.theme.Birthday
-import com.example.lab2.ui.theme.Lab2Theme
-import com.example.lab2.ui.theme.ProfileCard
+import com.example.lab3.ui.theme.Lab3Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Lab2Theme {
-               Birthday()
-                // Birthday
-                // TextApp
-                // ProfileCard
+            Lab3Theme {
+                DiceApp()
+
             }
         }
-
-
     }
 }
 
@@ -47,7 +37,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Lab2Theme {
+    Lab3Theme {
         Greeting("Android")
     }
 }
