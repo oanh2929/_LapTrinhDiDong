@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="app_name">Woof</string>
+
+    <string name="dog_name_koda">Koda</string>
+    <string name="dog_description_koda">Loves treats and playing with toys.</string>
+
+    <string name="dog_name_lola">Lola</string>
+    <string name="dog_description_lola">Enjoys long naps and belly rubs.</string>
+
+    <string name="dog_name_frankie">Frankie</string>
+    <string name="dog_description_frankie">Always excited for a walk.</string>
+
+    <string name="dog_name_nox">Nox</string>
+    <string name="dog_description_nox">Loves running around in the park.</string>
+
+    <string name="dog_name_faye">Faye</string>
+    <string name="dog_description_faye">Friendly and loves meeting new people.</string>
+
+    <string name="dog_name_bella">Bella</string>
+    <string name="dog_description_bella">Enjoys playing fetch.</string>
+
+    <string name="dog_name_moana">Moana</string>
+    <string name="dog_description_moana">Loves swimming and water.</string>
+
+    <string name="dog_name_tzeitel">Tzeitel</string>
+    <string name="dog_description_tzeitel">Enjoys relaxing in the sun.</string>
+
+</resources>
