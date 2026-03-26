@@ -35,7 +35,6 @@ class UpdateCourse : ComponentActivity() {
         }
     }
 }
-
 @Composable
 fun UpdateUI(
     courseID: String?,
@@ -54,22 +53,23 @@ fun UpdateUI(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFF0F5))
+            .background(Color(0xFFFFFDE7))
             .padding(16.dp)
     ) {
-        Spacer (modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             "✏️ Cập nhật khóa học",
             style = MaterialTheme.typography.headlineMedium,
-            color = Color(0xFFE91E63)
+            color = Color(0xFFFFA000)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFE4EC) // 💗 card hồng
+                containerColor = Color(0xFFFFF9C4) // 🌼 vàng pastel
             )
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -103,7 +103,7 @@ fun UpdateUI(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // 💖 UPDATE
+        // 💛 UPDATE
         Button(
             onClick = {
 
@@ -120,7 +120,9 @@ fun UpdateUI(
                         .document(courseID ?: "")
                         .set(course)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Update thành công 💕", Toast.LENGTH_SHORT).show()
+                            (context as? android.app.Activity)?.runOnUiThread {
+                                Toast.makeText(context.applicationContext, "Update thành công 💛", Toast.LENGTH_SHORT).show()
+                            }
                         }
                         .addOnFailureListener {
                             Toast.makeText(context, "Update lỗi", Toast.LENGTH_SHORT).show()
@@ -128,11 +130,11 @@ fun UpdateUI(
                 }
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF69B4) // 💗 hồng đậm
+                containerColor = Color(0xFFFFD54F) // 🌼 vàng cute
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Update 💕")
+            Text("Update 💛")
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -144,14 +146,16 @@ fun UpdateUI(
                     .document(courseID ?: "")
                     .delete()
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Đã xóa 🗑️", Toast.LENGTH_SHORT).show()
+                        (context as? android.app.Activity)?.runOnUiThread {
+                            Toast.makeText(context, "Đã xóa 🗑️", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     .addOnFailureListener {
                         Toast.makeText(context, "Xóa lỗi", Toast.LENGTH_SHORT).show()
                     }
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Red
+                containerColor = Color(0xFFFF8F00) // cam vàng
             ),
             modifier = Modifier.fillMaxWidth()
         ) {

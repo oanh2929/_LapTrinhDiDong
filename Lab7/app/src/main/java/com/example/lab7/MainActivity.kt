@@ -40,25 +40,24 @@ fun FirebaseUI() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFF0F5)) // 🌸 nền hồng nhạt
+            .background(Color(0xFFFFFDE7))
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
 
         Text(
-            text = "🎀 Thêm khóa học",
+            text = "🌼 Thêm khóa học",
             style = MaterialTheme.typography.headlineMedium,
-            color = Color(0xFFE91E63) // 💖 hồng đậm
+            color = Color(0xFFFFA000)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Card(
-            modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFE4EC) // 💗 hồng pastel
+                containerColor = Color(0xFFFFF9C4)
             ),
-            elevation = CardDefaults.cardElevation(8.dp)
+            elevation = CardDefaults.cardElevation(6.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
 
@@ -91,7 +90,7 @@ fun FirebaseUI() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // 💖 NÚT ADD
+        // 💛 ADD
         Button(
             onClick = {
                 if (courseName.value.isEmpty()) {
@@ -106,41 +105,32 @@ fun FirebaseUI() {
                         courseName.value = ""
                         courseDuration.value = ""
                         courseDescription.value = ""
-
-                        Toast.makeText(context, "Đã thêm!", Toast.LENGTH_SHORT).show()
                     }
                 }
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF69B4) // 💗 hồng đậm cute
+                containerColor = Color(0xFFFFD54F)
             ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Add Data 💕")
+            Text("Add 💛")
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
-        // 🌸 NÚT VIEW
+        // 👀 VIEW
         OutlinedButton(
             onClick = {
-                val intent = Intent(context, CourseDetailsActivity::class.java)
-                context.startActivity(intent)
+                context.startActivity(
+                    android.content.Intent(context, CourseDetailsActivity::class.java)
+                )
             },
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = Color(0xFFE91E63)
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("View Courses 🌷")
+            Text("View Courses 🌼", color = Color(0xFFFFA000))
         }
     }
 }
-
 fun addDataToFirebase(
     courseName: String,
     courseDuration: String,
@@ -160,10 +150,14 @@ fun addDataToFirebase(
     db.collection("Courses")
         .add(course)
         .addOnSuccessListener {
-            Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
-            onSuccess() // 🔥 GỌI SAU KHI ADD XONG
+            (context as? android.app.Activity)?.runOnUiThread {
+                Toast.makeText(context.applicationContext, "Thêm thành công 💛", Toast.LENGTH_SHORT).show()
+            }
+            onSuccess()
         }
         .addOnFailureListener {
-            Toast.makeText(context, "Lỗi khi thêm", Toast.LENGTH_SHORT).show()
+            (context as? android.app.Activity)?.runOnUiThread {
+                Toast.makeText(context, "Lỗi khi thêm", Toast.LENGTH_SHORT).show()
+            }
         }
 }

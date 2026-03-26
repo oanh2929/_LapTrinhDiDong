@@ -13,11 +13,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,19 +57,23 @@ class CourseDetailsActivity : ComponentActivity() {
                                         courseList.add(course)
                                     }
                                 } else {
-                                    Toast.makeText(
-                                        this@CourseDetailsActivity,
-                                        "Không có dữ liệu",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    runOnUiThread {
+                                        Toast.makeText(
+                                            this@CourseDetailsActivity,
+                                            "Không có dữ liệu",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
                             }
                             .addOnFailureListener {
-                                Toast.makeText(
-                                    this@CourseDetailsActivity,
-                                    "Lỗi load dữ liệu",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                runOnUiThread {
+                                    Toast.makeText(
+                                        this@CourseDetailsActivity,
+                                        "Lỗi load dữ liệu",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                     }
 
@@ -96,13 +98,13 @@ fun CourseListUI(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFFFFF0F5)) // 🌸 nền hồng nhạt
+            .background(Color(0xFFFFFDE7))
     ) {
 
         Text(
             text = "📚 Danh sách khóa học",
             style = MaterialTheme.typography.headlineMedium,
-            color = Color(0xFFE91E63),
+            color = Color(0xFFFFA000),
             modifier = Modifier.padding(16.dp)
         )
 
@@ -115,7 +117,7 @@ fun CourseListUI(
                         .fillMaxWidth()
                         .padding(10.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFFFE4EC) // 💗 card hồng
+                        containerColor = Color(0xFFFFF9C4)
                     ),
                     elevation = CardDefaults.cardElevation(6.dp),
                     onClick = {
@@ -134,24 +136,36 @@ fun CourseListUI(
 
                         Text(
                             text = item?.courseName ?: "",
-                            color = Color(0xFFE91E63),
+                            color = Color(0xFFFFA000),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Spacer(modifier = Modifier.height(5.dp))
 
-                        Text(
-                            text = "⏰ ${item?.courseDuration}",
-                            fontSize = 14.sp
-                        )
+                        Text("⏰ ${item?.courseDuration}")
 
                         Spacer(modifier = Modifier.height(5.dp))
 
-                        Text(
-                            text = "📝 ${item?.courseDescription}",
-                            fontSize = 14.sp
-                        )
+                        Text("📝 ${item?.courseDescription}")
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // 🔥 NÚT DELETE
+                        Button(
+                            onClick = {
+                                deleteCourse(
+                                    item?.courseID ?: "",
+                                    context,
+                                    courseList
+                                )
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFFF8F00)
+                            )
+                        ) {
+                            Text("Delete ❌")
+                        }
                     }
                 }
             }
@@ -159,7 +173,6 @@ fun CourseListUI(
     }
 }
 
-// 🔥 HÀM DELETE
 fun deleteCourse(
     courseID: String,
     context: Context,
@@ -171,12 +184,15 @@ fun deleteCourse(
         .document(courseID)
         .delete()
         .addOnSuccessListener {
-            Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show()
+            (context as? android.app.Activity)?.runOnUiThread {
+                Toast.makeText(context.applicationContext, "Xóa thành công 💛", Toast.LENGTH_SHORT).show()
+            }
 
-            // 👉 Xóa luôn trên UI (không cần reload)
             courseList.removeIf { it?.courseID == courseID }
         }
         .addOnFailureListener {
-            Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show()
+            (context as? android.app.Activity)?.runOnUiThread {
+                Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show()
+            }
         }
 }
